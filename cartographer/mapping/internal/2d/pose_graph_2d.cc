@@ -296,6 +296,8 @@ void PoseGraph2D::ComputeConstraint(const NodeId& node_id,
   }
 
   if (maybe_add_local_constraint) {
+    //获取node相对于submap的相对位姿，当initial_relative_pose长度过大的时候，放弃加入约束。这个设定不大合理啊
+    //相当于只有接近submap点附近的时候才会进行一次闭环检测
     const transform::Rigid2d initial_relative_pose =
         optimization_problem_->submap_data()
             .at(submap_id)
